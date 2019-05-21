@@ -1,0 +1,8 @@
+.calender-month{
+    border: 1px solid blue;
+    background-color: blue;
+    color: white;
+    height: 60px;
+    font-size: 50px;
+    padding : 1%;
+}
