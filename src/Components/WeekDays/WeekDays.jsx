@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
+import './WeekDays.css';
 
 class WeekDays extends Component {
   weekdayshort = moment.weekdaysShort();

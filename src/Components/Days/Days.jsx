@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
-import moment from 'moment';    
-let rows=[];
+import moment from 'moment';
+import './Days.css';
+
+let rows;
 class Days extends Component {
-    state = {
-        dateObject: moment()
+    constructor(props){
+        super(props);
+        this.state = {
+            dateObject: moment()
+        }
     }
     componentWillMount(){
         this.dayMap();
     }
+    componentWillUpdate(){
+        this.dayMap();
+    }
     firstDayOfMonth = () => {
-        let dateObject = this.state.dateObject;
+        let dateObject = this.props.dateObject;
         let firstDay = moment(dateObject)
                      .startOf("month")
                      .format("d"); 
+        // console.log(firstDay);
        return firstDay;
     };
     daysInMonth = () => {
-        return this.state.dateObject.daysInMonth();
+        return this.props.dateObject.daysInMonth();
     };
     dayMap=()=>{
         let blanks = [];
+        rows=[];
         for (let i = 0; i < this.firstDayOfMonth(); i++) {
-        blanks.push(<td className="calendar-day empty">{""}</td>);
+        blanks.push(<td key={i+100} className="calendar-day empty">{""}</td>);
         }
         let daysInMonth = [];
         for (let d = 1; d <= this.daysInMonth(); d++) {
         daysInMonth.push(
-            <td key={d} className="calendar-day">
+            <td key={d} onClick={(e)=>this.props.setReminder(e,d)} className="calendarDay">
             {d}
             </td>
         );
@@ -48,10 +58,10 @@ class Days extends Component {
         }); 
     }
     render() {
-        {console.log(rows)}
+        // {console.log(this.props.dateObject)}
         return (
             rows.map((d, i) => {
-                return i!==0 && <tr>{d}</tr>;
+                return i!==0 && <tr key={d+i} className='daysRow'>{d}</tr>;
               })
         );
     }
