@@ -1,0 +1,20 @@
+.reminder-div{
+    border: 1px solid white;
+    background-color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+}
+.reminder-desc{
+    text-align: left;
+}
+.reminder-title ,.add-reminder{
+    font-size: 20px;
+    font-weight: 800;
+    font-family: 'Times New Roman', Times, serif;
+}
+.reminder{
+    padding: 0% 2%;
+}
+.showReminder{
+    margin: 0% 2.5%;
+}
