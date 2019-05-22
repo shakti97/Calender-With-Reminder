@@ -15,6 +15,13 @@ td{
   border: 1px solid;
   cursor: pointer;
 }
+td:hover{
+  background-color: rgb(218, 216, 216);
+}
 table{
   border: 1px solid!important;
+}
+.redColor{
+  color: red;
+  text-align: left;
 }

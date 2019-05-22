@@ -25,14 +25,6 @@ class Calender extends Component {
       dateObject: this.state.dateObject.add(1, "month")
     });
   };
-  setMonth = month => {
-    let monthIndex = this.months.indexOf(month);
-    let dateObject = Object.assign({}, this.state.dateObject);
-    dateObject = moment(dateObject).set("month", monthIndex);
-    this.setState({
-      dateObject: dateObject
-    });
-  };
   handleClose = () => {
     this.setState({
       show: false
@@ -55,6 +47,7 @@ class Calender extends Component {
       }
     );
   };
+
   render() {
     return (
       <div className="calender">
@@ -67,28 +60,28 @@ class Calender extends Component {
             <i className="fa fa-arrow-circle-right" onClick={this.onNext} />
           </div>
         </div>
-        <div className='calender-table'>
-        <table className="calendar-day">
-          <thead>
-            <tr>
-              <WeekDays />
-            </tr>
-          </thead>
-          <tbody>
-            <Days
-              dateObject={this.state.dateObject}
-              setReminder={this.setReminder}
-            />
-          </tbody>
-        </table>
+        <div className="calender-table">
+          <table className="calendar-day">
+            <thead>
+              <tr>
+                <WeekDays />
+              </tr>
+            </thead>
+            <tbody>
+              <Days
+                dateObject={this.state.dateObject}
+                setReminder={this.setReminder}
+              />
+            </tbody>
+          </table>
         </div>
         {this.state.show && (
           <Modal
             show={this.state.show}
-            handleClose={this.handleClose}            
+            handleClose={this.handleClose}
             modalTitle="Add Reminder"
           >
-            <Reminder datObj={this.state.datObj}/>
+            <Reminder datObj={this.state.datObj} />
           </Modal>
         )}
       </div>

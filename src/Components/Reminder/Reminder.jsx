@@ -7,22 +7,39 @@ class Reminder extends Component {
     super(props);
     this.state = {
       description: "",
-      time: ""
+      time: "",
+      clientSideValidation: []
     };
   }
   handleChange = event => {
     event.preventDefault();
+    var targetName = event.target.name;
     this.setState(
       {
         [event.target.name]: event.target.value
       },
       () => {
-        console.log(this.state);
+        if (targetName === "time")
+          this.setState({
+            clientSideValidation: []
+          });
       }
     );
   };
   sumbitReminder = event => {
     event.preventDefault();
+    let clientSideValidation = [];
+    this.props.reminders.forEach(reminder => {
+      if (reminder.time === this.state.time) {
+        clientSideValidation.push("Time");
+      }
+    });
+    if (clientSideValidation.length !== 0) {
+      this.setState({
+        clientSideValidation: clientSideValidation
+      });
+      return;
+    }
     let reminderObj = {
       date: this.props.datObj.date,
       month: this.props.datObj.dMonth,
@@ -32,9 +49,6 @@ class Reminder extends Component {
     this.props.addReminder(reminderObj);
   };
   render() {
-    // {
-    //   console.log(this.props);
-    // }
     return (
       <React.Fragment>
         <div className="reminder">
@@ -61,6 +75,8 @@ class Reminder extends Component {
               <div className="form-group">
                 <input
                   type="text"
+                  max="30"
+                  required
                   className="form-control"
                   name="description"
                   onChange={this.handleChange}
@@ -71,10 +87,16 @@ class Reminder extends Component {
                 <input
                   type="time"
                   name="time"
+                  required
                   className="form-control"
                   onChange={this.handleChange}
                   placeholder="Set Time"
                 />
+                {this.state.clientSideValidation.includes("Time") ? (
+                  <div className="redColor">Two Reminder Have Same Time</div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="submit">
                 <button
@@ -95,7 +117,7 @@ class Reminder extends Component {
 const mapStateToProps = (state, ownProps) => {
   let datObj = ownProps.datObj;
   let remind = [];
-//   console.log(state.reminders);
+  //   console.log(state.reminders);
   state.reminders.forEach(reminder => {
     if (reminder.id === "" + datObj.dMonth + datObj.date) {
       remind.push(reminder);
@@ -103,7 +125,7 @@ const mapStateToProps = (state, ownProps) => {
   });
   return {
     reminders: remind
-    }
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {

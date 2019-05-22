@@ -36,7 +36,7 @@ class Days extends Component {
         let daysInMonth = [];
         for (let d = 1; d <= this.daysInMonth(); d++) {
         daysInMonth.push(
-            <td key={d} onClick={(e)=>this.props.setReminder(e,d)} className="calendarDay">
+            <td key={d} onClick={(e)=>this.props.setReminder(e,d)} className="calendar-day fill">
             {d}
             </td>
         );
@@ -66,5 +66,6 @@ class Days extends Component {
         );
     }
 }
+
 
 export default Days;
